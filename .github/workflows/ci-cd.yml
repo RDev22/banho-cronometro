@@ -26,7 +26,7 @@ jobs:
         run: docker build -t banho-cronometro .
 
       - name: Rodar container para testes
-        run: docker run -d -p 8081:8080 banho-cronometro
+        run: docker run --rm -d -p 8081:8080 banho-cronometro
 
       - name: Login no Docker Hub
         env:
@@ -39,3 +39,6 @@ jobs:
 
       - name: Push para Docker Hub
         run: docker push rdev77/banho-cronometro:latest
+
+      - name: Logout do Docker Hub
+        run: docker logout
