@@ -27,3 +27,12 @@ jobs:
 
       - name: Rodar container para testes
         run: docker run -d -p 8081:8080 banho-cronometro
+
+      - name: Login no Docker Hub
+        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+
+      - name: Tag da imagem
+        run: docker tag banho-cronometro rdev77/banho-cronometro:latest
+
+      - name: Push para Docker Hub
+        run: docker push rdev77/banho-cronometro:latest
