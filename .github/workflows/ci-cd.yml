@@ -6,6 +6,7 @@ on:
       - main
 
 jobs:
+ jobs:
   build:
     runs-on: ubuntu-latest
 
@@ -29,10 +30,7 @@ jobs:
         run: docker run --rm -d -p 8081:8080 banho-cronometro
 
       - name: Login no Docker Hub
-        env:
-          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-        run: echo "$DOCKER_HUB_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
+        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
 
       - name: Tag da imagem
         run: docker tag banho-cronometro rdev77/banho-cronometro:latest
